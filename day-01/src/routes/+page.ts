@@ -20,7 +20,7 @@ export const load: PageLoad = async ({ fetch }) => {
 				score: item.tally > 0 ? 'nice' : 'naughty'
 			})
 		)
-		.toSorted((a, b) => {
+		.sort((a, b) => {
 			return a.name.localeCompare(b.name);
 		});
 

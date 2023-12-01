@@ -25,7 +25,7 @@
 			];
 		}
 
-		newData = newData.toSorted((a, b) => {
+		newData.sort((a, b) => {
 			return a.name.localeCompare(b.name);
 		});
 	};

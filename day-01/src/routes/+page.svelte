@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { recalculateScore } from '$lib';
+	import Github from "$lib/icons/github.svg";
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -40,14 +41,14 @@
 
 <!-- Form Add Data -->
 <section class="form-container">
-	<form on:submit|preventDefault={onFormSubmitHandler}>
+	<form class="form" on:submit|preventDefault={onFormSubmitHandler}>
 		<label for="name">Name</label>
 		<input type="text" id="name" name="name" placeholder="Name" bind:value={inputName} />
 
 		<label for="tally">Tally</label>
 		<input type="number" id="tally" name="tally" placeholder="Tally" bind:value={inputTally} />
 
-		<button type="submit">Add</button>
+		<button class="form-button" type="submit">Add</button>
 	</form>
 </section>
 
@@ -61,6 +62,14 @@
 	{/each}
 </section>
 
+<!-- Div Link -->
+<section class="link-container">
+	<a href="https://github.com/withered-flowers/learn-advent-of-svelte-2023/tree/main/day-01" class="link-item">
+		<img class="link-image" src={Github} alt="github" />
+		(Source Code)
+	</a>
+</section>
+
 <style lang="postcss">
 	@media (min-width: 640px) {
 		:root {
@@ -71,6 +80,7 @@
 	@media (min-width: 1024px) {
 		:root {
 			--custom-grid-column: 1fr 1fr 1fr;
+			--custom-form-flex-direction: row;
 		}
 	}
 
@@ -85,11 +95,23 @@
 		color: '#334155';
 	}
 
-	.form-container {
+	.form-container, .link-container {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+	}
+
+	.form {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: var(--custom-form-flex-direction, column);
+		gap: 0.5rem;
+	}
+
+	.form-button {
+		width: 100%;
 	}
 
 	.grid-container {
@@ -110,5 +132,17 @@
 
 	.score-nice {
 		background-color: #a5f3fc;
+	}
+
+	.link-item {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.25rem;
+	}
+
+	.link-image {
+		width: 2rem;
+		height: 2rem;
 	}
 </style>

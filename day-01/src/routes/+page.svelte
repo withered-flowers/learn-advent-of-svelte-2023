@@ -31,30 +31,35 @@
 	};
 </script>
 
-<body>
-	<!-- Form Add Data -->
-	<section class="form-container">
-		<form on:submit|preventDefault={onFormSubmitHandler}>
-			<label for="name">Name</label>
-			<input type="text" id="name" name="name" placeholder="Name" bind:value={inputName} />
+<svelte:head>
+	<title>Advent of Svelte - Day 01</title>
+	<meta name="description" content="Advent of Svelte - Day 01" />
+	<meta name="keywords" content="svelte,advent of svelte,day 01" />
+</svelte:head>
 
-			<label for="tally">Tally</label>
-			<input type="number" id="tally" name="tally" placeholder="Tally" bind:value={inputTally} />
 
-			<button type="submit">Add</button>
-		</form>
-	</section>
+<!-- Form Add Data -->
+<section class="form-container">
+	<form on:submit|preventDefault={onFormSubmitHandler}>
+		<label for="name">Name</label>
+		<input type="text" id="name" name="name" placeholder="Name" bind:value={inputName} />
 
-	<!-- Div Show Data -->
-	<section class="grid-container">
-		{#each newData as eachScore}
-			<!-- If score is naughty add score-naughty class -->
-			<div class="grid-item {eachScore.score === 'naughty' ? 'score-naughty' : 'score-nice'}">
-				{eachScore.name}: {eachScore.tally} ({eachScore.score})
-			</div>
-		{/each}
-	</section>
-</body>
+		<label for="tally">Tally</label>
+		<input type="number" id="tally" name="tally" placeholder="Tally" bind:value={inputTally} />
+
+		<button type="submit">Add</button>
+	</form>
+</section>
+
+<!-- Div Show Data -->
+<section class="grid-container">
+	{#each newData as eachScore}
+		<!-- If score is naughty add score-naughty class -->
+		<div class="grid-item {eachScore.score === 'naughty' ? 'score-naughty' : 'score-nice'}">
+			{eachScore.name}: {eachScore.tally} ({eachScore.score})
+		</div>
+	{/each}
+</section>
 
 <style lang="postcss">
 	@media (min-width: 640px) {

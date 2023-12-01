@@ -1,4 +1,4 @@
-# Advent of Svelte 2023
+# Advent of Svelte (Dec 2023)
 
 This is just a repo for myself to keep track of my progress in the [Advent of Svelte 2023](https://advent.sveltesociety.dev/).
 

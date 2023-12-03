@@ -4,6 +4,7 @@
 	import sleepAnimationJson from '$lib/animations/sleep.json';
 	import happyAnimationJson from '$lib/animations/happy.json';
 	import cookies from '$lib/images/cookies.png';
+	import Github from '$lib/icons/github.svg';
 
 	let counter = 0;
 	$: animationToLoad = chooseAnimation(counter);
@@ -101,5 +102,15 @@
 			class="py-2 px-4 bg-blue-400 text-slate-100 hover:text-slate-700 hover:bg-blue-400/50 duration-300 transition-colors rounded"
 			on:click={buttonResetHandler}>Reset</button
 		>
+	</section>
+
+	<section>
+		<a
+			href="https://github.com/withered-flowers/learn-advent-of-svelte-2023/tree/day-02/day-02"
+			class="bg-gray-200 hover:bg-gray-200/50 text-slate-700 transition-colors duration-300 py-2 px-4 rounded flex gap-2 items-center"
+		>
+			<img class="link-image" src={Github} alt="github" />
+			(Source Code)
+		</a>
 	</section>
 </section>

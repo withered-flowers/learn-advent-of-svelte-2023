@@ -2,6 +2,7 @@
 	import { fade } from 'svelte/transition';
 	import { sleighWeightsProblem, type Item } from '$lib/utils/knapsack';
 	import type { PageData } from './$types';
+	import Github from '$lib/icons/github.svg';
 
 	type SleighLoadBalancer = {
 		data: Item[];
@@ -36,7 +37,7 @@
 	<title>Advent of Svelte - Day 03</title>
 </svelte:head>
 
-<section class="bg-slate-50 w-full min-h-[100dvh] flex flex-col gap-4 p-4 text-slate-700">
+<section class="bg-gray-50 w-full min-h-[100dvh] flex flex-col gap-4 p-4 text-slate-700">
 	<section>
 		{#if remainingSleighLoads.length > 0}
 			<p class="text-center">Gifts Remaining: {remainingSleighLoads.length}</p>
@@ -99,4 +100,14 @@
 			</section>
 		</section>
 	{/if}
+
+	<section class="mx-auto">
+		<a
+			href="https://github.com/withered-flowers/learn-advent-of-svelte-2023/tree/day-03/day-03"
+			class="bg-gray-200 hover:bg-gray-200/50 text-slate-700 transition-colors duration-300 py-2 px-4 rounded flex gap-2 items-center"
+		>
+			<img class="link-image" src={Github} alt="github" />
+			(Source Code)
+		</a>
+	</section>
 </section>

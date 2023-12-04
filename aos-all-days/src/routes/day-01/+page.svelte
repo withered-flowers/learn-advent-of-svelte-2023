@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { recalculateScore } from '$lib/day-01/utils';
+	import { recalculateScore } from '$lib/utils/d1-score';
 	import Github from '$lib/icons/github.svg';
 	import type { PageData } from './$types';
 
@@ -64,7 +64,7 @@
 <!-- Div Link -->
 <section class="link-container">
 	<a
-		href="https://github.com/withered-flowers/learn-advent-of-svelte-2023/tree/main/day-01"
+		href="https://github.com/withered-flowers/learn-advent-of-svelte-2023/tree/main/aos-all-days"
 		class="link-item"
 	>
 		<img class="link-image" src={Github} alt="github" />

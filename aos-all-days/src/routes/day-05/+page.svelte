@@ -2,6 +2,7 @@
 	import { page } from '$app/stores';
 	import BarChart from '$lib/components/BarChart.svelte';
 	import DoughnutChart from '$lib/components/DoughnutChart.svelte';
+	import Footer from '$lib/components/Footer.svelte';
 	import {
 		type ChartData,
 		createWrappedVsCreatedData,
@@ -74,6 +75,10 @@
 				>
 			</li>
 		</ul>
+
+		<section class="mt-8">
+			<Footer />
+		</section>
 	</section>
 
 	<!-- Right (Content) -->

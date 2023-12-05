@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Footer from '$lib/components/Footer.svelte';
+
 	const dayDone = 5;
 </script>
 
@@ -7,7 +9,7 @@
 </svelte:head>
 
 <section
-	class="flex min-h-[100dvh] w-full flex-row items-center justify-center bg-gray-50 text-slate-700"
+	class="flex min-h-[100dvh] w-full flex-col items-center justify-center bg-gray-50 text-slate-700"
 >
 	<section class="mx-auto max-w-3xl">
 		<h1 class="text-center text-3xl font-bold text-gray-900">Advent of Svelte</h1>
@@ -27,4 +29,6 @@
 			{/each}
 		</section>
 	</section>
+
+	<Footer />
 </section>

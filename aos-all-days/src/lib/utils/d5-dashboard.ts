@@ -72,7 +72,9 @@ export const createChartData = ({
 	};
 };
 
-export const fetchDataDashboard = async (): Promise<Task[]> => {
+export const fetchDataDashboard = async (
+	fetch: (input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>
+): Promise<Task[]> => {
 	const response: Response = await fetch(
 		'https://advent.sveltesociety.dev/data/2023/day-five.json'
 	);
@@ -128,4 +130,56 @@ export const createMinutesTakenChartData = (filteredData: Task[]): ChartData => 
 	});
 };
 
-// TODO: Refactor code from day-05/+page.svelte
+export const createElfGroupData = (filteredData: Task[]): ChartData => {
+	const objElfGroup: Record<string, number> = {};
+
+	filteredData.forEach((item) => {
+		const elfGroup = item.elf;
+		objElfGroup[elfGroup] = 0;
+	});
+
+	const elfGroup = filteredData.reduce(
+		(acc, curr) => {
+			const elfGroup = curr.elf;
+			acc[elfGroup]++;
+			return acc;
+		},
+		{ ...objElfGroup }
+	);
+
+	return createChartData({
+		chartType: 'Bar',
+		label: 'Count',
+		title: 'Elf Group',
+		titleLabel: Object.keys(elfGroup),
+		data: Object.values(elfGroup),
+		position: 'top'
+	});
+};
+
+export const createTimestampGroupData = (filteredData: Task[]): ChartData => {
+	const objTimestampCount: Record<string, number> = {};
+
+	filteredData.forEach((item) => {
+		const timestamp = new Date(item.date).toLocaleString();
+		objTimestampCount[timestamp] = 0;
+	});
+
+	const timestampGroup = filteredData.reduce(
+		(acc, curr) => {
+			const timestamp = new Date(curr.date).toLocaleString();
+			acc[timestamp]++;
+			return acc;
+		},
+		{ ...objTimestampCount }
+	);
+
+	return createChartData({
+		chartType: 'Bar',
+		label: 'Count',
+		title: 'Timestamp Group',
+		titleLabel: Object.keys(timestampGroup),
+		data: Object.values(timestampGroup),
+		position: 'top'
+	});
+};

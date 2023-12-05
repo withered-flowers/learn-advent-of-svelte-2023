@@ -1,5 +1,5 @@
 <script lang="ts">
-	const dayDone = 4;
+	const dayDone = 5;
 </script>
 
 <svelte:head>

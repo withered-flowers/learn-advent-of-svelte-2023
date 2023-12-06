@@ -84,7 +84,7 @@
 >
 	<p class="mb-4 text-center text-3xl font-semibold">Mistletoe Metronome</p>
 
-	<section class="w-1/2 rounded-lg bg-[#fff7c4] px-4 py-2 md:w-1/3">
+	<section class="w-full rounded-lg bg-[#fff7c4] px-4 py-2 md:w-3/4">
 		<label for="tempo" class="mb-2 block text-sm font-bold">Tempo</label>
 		<select
 			name="tempo"
@@ -105,18 +105,17 @@
 		{/if}
 
 		<section
-			class="mx-auto my-8 w-1/4 rounded-lg bg-[#A9B388] p-4 shadow-md transition-all duration-300 hover:bg-[#A9B388]/80 hover:text-white hover:shadow-lg"
+			class="mx-auto my-8 w-1/2 rounded-lg bg-[#A9B388] p-4 shadow-md transition-all duration-300 hover:bg-[#A9B388]/80 hover:text-white hover:shadow-lg sm:w-1/4 lg:w-[10%]"
 			class:end={!isStarted}
 		>
 			<p class="text-center text-3xl font-semibold">{currBpm}</p>
 		</section>
 
 		<section
-			class="mx-auto mb-4 flex w-[560px] items-center justify-center overflow-hidden rounded-xl"
+			class="mx-auto mb-4 flex w-96 items-center justify-center overflow-hidden rounded-xl transition-all duration-300 md:w-[32rem]"
 		>
 			<iframe
-				width="560"
-				height="315"
+				class="h-[20rem] w-96 md:w-[32rem]"
 				src="https://www.youtube-nocookie.com/embed/nlR0MkrRklg?si=jCodXwPVExH4eeiD"
 				title="YouTube video player"
 				frameborder="0"

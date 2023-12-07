@@ -46,6 +46,8 @@
 				(index * 1000) / 3
 			);
 		});
+
+		// playMorseSound(context, 'sine', 2);
 	};
 </script>
 
@@ -66,10 +68,12 @@
 			class="min-w-[10rem] px-4 py-2 md:min-w-[18rem]"
 		/>
 
-		<section>
-			<p>Morse String</p>
-			<p>{morseString}</p>
-		</section>
+		{#if morseString}
+			<section>
+				<p>Morse String</p>
+				<p>{morseString}</p>
+			</section>
+		{/if}
 
 		<button
 			class:custom-disabled={isSuspended}

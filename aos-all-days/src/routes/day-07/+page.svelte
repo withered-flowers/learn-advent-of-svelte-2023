@@ -1,28 +1,51 @@
 <script lang="ts">
 	import Footer from '$lib/components/Footer.svelte';
-	import { playMorseSound, stopMorseSound, translateStringToMorse } from '$lib/utils/d7-morse';
+	import { calculateSoundDelay, playMorseSound, translateStringToMorse } from '$lib/utils/d7-morse';
 
 	let stringToTranslate = '';
+	let morseString = '';
 	let context: AudioContext;
-	let gainNode: GainNode;
-	let suspendState: boolean = false;
+	let isSuspended: boolean = false;
 
 	const formSubmitHandler = () => {
 		const morseSounds = translateStringToMorse(stringToTranslate);
-		const { context: soundContext, gainNode: soundGainNode } = playMorseSound(context, morseSounds);
+		morseString = morseSounds
+			.map((sound) => {
+				let returnedString = '';
 
-		context = soundContext;
-		gainNode = soundGainNode;
-	};
+				if (sound === 'dash') {
+					return '-';
+				} else if (sound === 'dot') {
+					return '.';
+				} else if (sound === 'silence') {
+					return '*';
+				} else if (sound === 'space') {
+					return '/';
+				}
 
-	const stopButtonHandler = () => {
-		stopMorseSound(gainNode, context);
-		suspendState = true;
-	};
+				return returnedString;
+			})
+			.join(' ');
+		isSuspended = true;
 
-	const resumeButtonHandler = () => {
-		context.resume();
-		suspendState = false;
+		morseSounds.forEach((sound, index) => {
+			setTimeout(
+				() => {
+					let delayNumber = calculateSoundDelay(sound);
+
+					if (index === 0) {
+						context = new AudioContext();
+					}
+
+					playMorseSound(context, 'sine', delayNumber);
+
+					if (index === morseSounds.length - 1) {
+						isSuspended = false;
+					}
+				},
+				(index * 1000) / 3
+			);
+		});
 	};
 </script>
 
@@ -42,18 +65,24 @@
 			placeholder="Insert sentence here"
 			class="min-w-[10rem] px-4 py-2 md:min-w-[18rem]"
 		/>
+
+		<section>
+			<p>Morse String</p>
+			<p>{morseString}</p>
+		</section>
+
 		<button
+			class:custom-disabled={isSuspended}
 			class="rounded bg-blue-400 px-4 py-2 text-slate-100 transition-colors duration-300 hover:bg-blue-400/50 hover:text-slate-700"
 			type="submit">Morse It !</button
 		>
-		{#if context && gainNode}
-			{#if !suspendState}
-				<button type="button" on:click={stopButtonHandler}>Stop Sound</button>
-			{:else}
-				<button type="button" on:click={resumeButtonHandler}>Resume Sound</button>
-			{/if}
-		{/if}
 	</form>
 
 	<Footer />
 </section>
+
+<style lang="postcss">
+	.custom-disabled {
+		@apply pointer-events-none cursor-not-allowed opacity-50;
+	}
+</style>

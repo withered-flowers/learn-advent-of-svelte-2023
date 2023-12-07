@@ -1,4 +1,4 @@
-type MorseSound = 'dot' | 'dash' | 'silence';
+type MorseSound = 'dot' | 'dash' | 'silence' | 'space';
 
 type MorseCode = {
 	[key: string]: MorseSound[];
@@ -41,7 +41,7 @@ export const MORSE_ALPHABET_AND_NUMERIC: MorseCode = {
 	7: ['dash', 'dash', 'dot', 'dot', 'dot'],
 	8: ['dash', 'dash', 'dash', 'dot', 'dot'],
 	9: ['dash', 'dash', 'dash', 'dash', 'dot'],
-	' ': ['silence']
+	' ': ['space']
 };
 
 export const translateStringToMorse = (word: string): MorseSound[] => {
@@ -63,24 +63,31 @@ export const translateStringToMorse = (word: string): MorseSound[] => {
 	return morseWord;
 };
 
-export const playMorseSound = (
-	audioContext: AudioContext,
-	morse: MorseSound[]
-): { gainNode: GainNode; context: AudioContext } => {
-	const context = audioContext ?? new AudioContext();
-	const oscillator = context.createOscillator();
-	const gainNode = context.createGain();
+export const calculateSoundDelay = (sound: MorseSound): number => {
+	let delayNumber;
 
-	oscillator.connect(gainNode);
-	oscillator.frequency.value = 16.35;
+	if (sound === 'dot') {
+		delayNumber = 0.075;
+	} else if (sound === 'dash') {
+		delayNumber = 0.4;
+	} else {
+		delayNumber = 0;
+	}
 
-	gainNode.connect(context.destination);
-
-	oscillator.start(0);
-
-	return { gainNode, context };
+	return delayNumber;
 };
 
-export const stopMorseSound = (gainNode: GainNode, context: AudioContext): void => {
-	gainNode.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1);
+export const playMorseSound = (audioContext: AudioContext, type: OscillatorType, x: number) => {
+	const context = audioContext ?? new AudioContext({ latencyHint: 'playback' });
+	const oscillatorNode = context.createOscillator();
+	const gainNode = context.createGain();
+
+	oscillatorNode.connect(gainNode);
+	oscillatorNode.type = type;
+	gainNode.connect(context.destination);
+	oscillatorNode.start(0);
+
+	gainNode.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + x);
+
+	return { context, gainNode };
 };

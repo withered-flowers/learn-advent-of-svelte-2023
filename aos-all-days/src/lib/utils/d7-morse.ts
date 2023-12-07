@@ -67,9 +67,9 @@ export const calculateSoundDelay = (sound: MorseSound): number => {
 	let delayNumber;
 
 	if (sound === 'dot') {
-		delayNumber = 0.075;
+		delayNumber = 1;
 	} else if (sound === 'dash') {
-		delayNumber = 0.4;
+		delayNumber = 2;
 	} else {
 		delayNumber = 0;
 	}
@@ -84,6 +84,7 @@ export const playMorseSound = (audioContext: AudioContext, type: OscillatorType,
 
 	oscillatorNode.connect(gainNode);
 	oscillatorNode.type = type;
+	oscillatorNode.frequency.value = 440;
 	gainNode.connect(context.destination);
 	oscillatorNode.start(0);
 

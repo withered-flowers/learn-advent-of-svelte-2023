@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Footer from '$lib/components/Footer.svelte';
 
-	const dayDone = 6;
+	const dayDone = 7;
 </script>
 
 <svelte:head>
